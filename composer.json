@@ -1,0 +1,25 @@
+{
+    "name": "hamidgh83/preview-maker",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hamid Ghorashi",
+            "email": "h.ghorashi@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src/Core",
+            "Module\\": "src"
+        },
+        "classmap": ["src"]
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/console": "^3.4",
+        "php-ffmpeg/php-ffmpeg": "^0.16.0",
+        "php-di/php-di": "^6.0",
+        "ocramius/proxy-manager": "^2.0"
+    }
+}
