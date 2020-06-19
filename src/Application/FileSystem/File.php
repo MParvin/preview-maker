@@ -22,14 +22,18 @@ class File
     {
         $mimeTypes = new MimeTypes();
         $mimeType  = $mimeTypes->guessMimeType($filePath);
-        $pathInfo  = pathinfo($this->path);
+        $pathInfo  = pathinfo($filePath);
         
         $this->setName($pathInfo['filename']);
         $this->setExtension($pathInfo['extension']);
         $this->setDir($pathInfo['dirname']);
         $this->setPath($filePath);
-        $this->getMetadata()->setMimeType($mimeType);
-        $this->getMetadata()->setSize(filesize($filePath));
+
+        $metadata = $this->getMetadata();
+        $metadata
+            ->setMimeType($mimeType)
+            ->setSize(filesize($filePath));
+        $this->setMetadata($metadata);
     }
 
     /**
