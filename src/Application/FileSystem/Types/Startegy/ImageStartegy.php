@@ -8,6 +8,14 @@ class ImageStrategy implements StrategyInterface
 {
     protected $file;
 
+    private $validMimeTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "image/psd",
+        "image/bmp",
+    ];
+
     public function __construct(File $file)
     {
         $this->file = $file;
@@ -20,17 +28,19 @@ class ImageStrategy implements StrategyInterface
 
     public function match(): bool
     {
-        $mimeType = $this->file->getMetadata()->getMimeType();
-        
+        if (in_array($this->file->getMetadata()->getMimeType(), $this->validMimeTypes)) {
+            return true;
+        }
+
         return false;
     }
 
-    public function preview(): ?string
+    public function preview(): File
     {
         if (!$this->match()) {
-            return null;
+            return $this->file;
         }
-
+        
         
     }
 }

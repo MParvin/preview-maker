@@ -16,6 +16,8 @@ class File
 
     private $metadata;
 
+    private $preview;
+
     public function __construct($filePath)
     {
         $mimeTypes = new MimeTypes();
@@ -130,6 +132,26 @@ class File
     public function setMetadata(Metadata $metadata)
     {
         $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of preview
+     */ 
+    public function getPreview()
+    {
+        return $this->preview;
+    }
+
+    /**
+     * Set the value of preview
+     *
+     * @return  self
+     */ 
+    public function setPreview($preview)
+    {
+        $this->preview = $preview;
 
         return $this;
     }

@@ -8,6 +8,15 @@ class AudioStrategy implements StrategyInterface
 {
     protected $file;
 
+    private $validMimeTypes = [
+        "audio/mp4",
+        "audio/mpeg",
+        "audio/ogg",
+        "audio/wav",
+        "audio/webm",
+        "audio/x-ms-wma"    
+    ];
+
     public function __construct(File $file)
     {
         $this->file = $file;
@@ -20,13 +29,17 @@ class AudioStrategy implements StrategyInterface
 
     public function match(): bool
     {
+        if (in_array($this->file->getMetadata()->getMimeType(), $this->validMimeTypes)) {
+            return true;
+        }
+
         return false;
     }
 
-    public function preview(): ?string
+    public function preview(): File
     {
         if (!$this->match()) {
-            return null;
+            return $this->file;
         }
 
         
