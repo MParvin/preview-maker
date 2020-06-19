@@ -38,9 +38,9 @@ class ImageStrategy implements StrategyInterface
     public function preview(): File
     {
         if (!$this->match()) {
-            return $this->file;
+            return $this->file->setPreview(null);
         }
         
-        
+        return $this->file->setPreview($this->file->getPath());
     }
 }

@@ -21,7 +21,7 @@ class PreviewService
         {
             $this->read($filePath);
         }
-
+        
         $this->types = [
             Strategy\ImageStrategy::class,
             Strategy\DocumentStrategy::class,
@@ -44,6 +44,11 @@ class PreviewService
         $this->file = new File($this->filePath);
 
         return $this;
+    }
+
+    public function getFile(): File
+    {
+        return $this->file;
     }
 
     public function preview()
