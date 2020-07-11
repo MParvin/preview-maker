@@ -12,13 +12,13 @@ class ConsoleApplication extends Application
 
     private $container;
 
-    public function init(array $config) 
+    public function init(array $config)
     {
         $this->config = $config;
 
         return $this
-             ->createContainer(isset($config['services']) ? $config['services'] : [])
-             ->registerCommands();
+            ->createContainer(isset($config['services']) ? $config['services'] : [])
+            ->registerCommands();
     }
 
     private function registerCommands()
@@ -40,12 +40,12 @@ class ConsoleApplication extends Application
         $containerBuilder->useAutowiring(false);
         $containerBuilder->useAnnotations(false);
         $containerBuilder->addDefinitions($services);
-        
+
         // Set container
         $this->container = $containerBuilder->build();
 
         return $this;
-    } 
+    }
 
     public function getContainer()
     {

@@ -9,10 +9,10 @@ class DocumentStrategy implements StrategyInterface
     protected $file;
 
     private $validMimeTypes = [
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-        "application/vnd.ms-excel", 
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
-        "application/vnd.ms-powerpoint", 
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-powerpoint",
         "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     ];
 
@@ -20,7 +20,7 @@ class DocumentStrategy implements StrategyInterface
     {
         $this->file = $file;
     }
-    
+
     public function getType()
     {
         return self::TYPE_DOCUMENT;
@@ -31,7 +31,7 @@ class DocumentStrategy implements StrategyInterface
         if (in_array($this->file->getMetadata()->getMimeType(), $this->validMimeTypes)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -40,7 +40,5 @@ class DocumentStrategy implements StrategyInterface
         if (!$this->match()) {
             return $this->file;
         }
-
-        
     }
 }

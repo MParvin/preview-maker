@@ -15,20 +15,19 @@ class PreviewService
 
     protected $startegy;
 
-    public function  __construct($filePath = null)
+    public function __construct($filePath = null)
     {
-        if ($filePath)
-        {
+        if ($filePath) {
             $this->read($filePath);
         }
-        
+
         $this->types = [
             Strategy\ImageStrategy::class,
             Strategy\DocumentStrategy::class,
             Strategy\PdfStrategy::class,
             Strategy\AudioStrategy::class,
             Strategy\VideoStartegy::class,
-        ]; 
+        ];
     }
 
     public function read($filePath = null)
@@ -57,8 +56,7 @@ class PreviewService
             throw new \Exception("No file has been selected.");
         }
 
-        foreach ($this->types as $strategy)
-        {
+        foreach ($this->types as $strategy) {
             $this->strategy = new $strategy($this->file);
 
             if ($this->strategy->match()) {

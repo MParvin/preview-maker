@@ -16,7 +16,7 @@ class PdfStrategy implements StrategyInterface
     {
         $this->file = $file;
     }
-    
+
     public function getType()
     {
         return self::TYPE_PDF;
@@ -27,7 +27,7 @@ class PdfStrategy implements StrategyInterface
         if (in_array($this->file->getMetadata()->getMimeType(), $this->validMimeTypes)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -36,7 +36,5 @@ class PdfStrategy implements StrategyInterface
         if (!$this->match()) {
             return $this->file;
         }
-
-        
     }
 }

@@ -9,9 +9,9 @@ class File
     private $name;
 
     private $extension;
-    
+
     private $path;
-    
+
     private $dir;
 
     private $metadata;
@@ -23,7 +23,7 @@ class File
         $mimeTypes = new MimeTypes();
         $mimeType  = $mimeTypes->guessMimeType($filePath);
         $pathInfo  = pathinfo($filePath);
-        
+
         $this->setName($pathInfo['filename']);
         $this->setExtension($pathInfo['extension']);
         $this->setDir($pathInfo['dirname']);
@@ -38,7 +38,7 @@ class File
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -47,8 +47,8 @@ class File
     /**
      * Set the value of name
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -58,7 +58,7 @@ class File
 
     /**
      * Get the value of extension
-     */ 
+     */
     public function getExtension()
     {
         return $this->extension;
@@ -67,8 +67,8 @@ class File
     /**
      * Set the value of extension
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setExtension($extension)
     {
         $this->extension = $extension;
@@ -78,7 +78,7 @@ class File
 
     /**
      * Get the value of path
-     */ 
+     */
     public function getPath()
     {
         return $this->path;
@@ -87,8 +87,8 @@ class File
     /**
      * Set the value of path
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setPath($path)
     {
         $this->path = $path;
@@ -98,7 +98,7 @@ class File
 
     /**
      * Get the value of dir
-     */ 
+     */
     public function getDir()
     {
         return $this->dir;
@@ -107,8 +107,8 @@ class File
     /**
      * Set the value of dir
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setDir($dir)
     {
         $this->dir = $dir;
@@ -118,7 +118,7 @@ class File
 
     /**
      * Get the value of metadata
-     */ 
+     */
     public function getMetadata(): Metadata
     {
         if ($this->metadata instanceof Metadata) {
@@ -131,8 +131,8 @@ class File
     /**
      * Set the value of metadata
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setMetadata(Metadata $metadata)
     {
         $this->metadata = $metadata;
@@ -142,7 +142,7 @@ class File
 
     /**
      * Get the value of preview
-     */ 
+     */
     public function getPreview()
     {
         return $this->preview;
@@ -151,8 +151,8 @@ class File
     /**
      * Set the value of preview
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setPreview($preview)
     {
         $this->preview = $preview;

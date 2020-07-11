@@ -12,7 +12,7 @@ class VideoStartegy implements StrategyInterface
     {
         $this->file = $file;
     }
-    
+
     public function getType()
     {
         return self::TYPE_VIDEO;
@@ -28,7 +28,5 @@ class VideoStartegy implements StrategyInterface
         if (!$this->match()) {
             return null;
         }
-
-        
     }
 }

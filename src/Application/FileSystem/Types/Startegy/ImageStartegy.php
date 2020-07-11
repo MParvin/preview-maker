@@ -20,7 +20,7 @@ class ImageStrategy implements StrategyInterface
     {
         $this->file = $file;
     }
-    
+
     public function getType()
     {
         return self::TYPE_IMAGE;
@@ -40,7 +40,7 @@ class ImageStrategy implements StrategyInterface
         if (!$this->match()) {
             return $this->file->setPreview(null);
         }
-        
+
         return $this->file->setPreview($this->file->getPath());
     }
 }

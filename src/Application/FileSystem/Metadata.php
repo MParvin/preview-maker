@@ -7,10 +7,10 @@ class Metadata
     private $mimeType;
 
     private $size;
-    
+
     /**
      * Get the value of mimeType
-     */ 
+     */
     public function getMimeType()
     {
         return $this->mimeType;
@@ -19,8 +19,8 @@ class Metadata
     /**
      * Set the value of mimeType
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setMimeType($mimeType)
     {
         $this->mimeType = $mimeType;
@@ -30,7 +30,7 @@ class Metadata
 
     /**
      * Get the value of size
-     */ 
+     */
     public function getSize()
     {
         return $this->size;
@@ -39,8 +39,8 @@ class Metadata
     /**
      * Set the value of size
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setSize($size)
     {
         $this->size = $size;

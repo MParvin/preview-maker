@@ -18,11 +18,9 @@ class ffmpegService
 
     public function isVideo()
     {
-
     }
 
     public function isAudio()
     {
-        
     }
 }

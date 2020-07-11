@@ -14,14 +14,14 @@ class AudioStrategy implements StrategyInterface
         "audio/ogg",
         "audio/wav",
         "audio/webm",
-        "audio/x-ms-wma"    
+        "audio/x-ms-wma"
     ];
 
     public function __construct(File $file)
     {
         $this->file = $file;
     }
-    
+
     public function getType()
     {
         return self::TYPE_AUDIO;
@@ -41,7 +41,5 @@ class AudioStrategy implements StrategyInterface
         if (!$this->match()) {
             return $this->file;
         }
-
-        
     }
 }
