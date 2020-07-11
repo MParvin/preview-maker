@@ -23,5 +23,13 @@
         "ocramius/proxy-manager": "^2.0",
         "symfony/filesystem": "^3.4",
         "symfony/mime": "^5.1"
+    },
+    "scripts": {
+        "codesniffer-set-standard": "vendor/bin/phpcs --config-set installed_paths Standards/ && vendor/bin/phpcs --config-set default_standard ",
+        "codesniffer-check": "vendor/bin/phpcs ",
+        "codesniffer-fix": "vendor/bin/phpcbf "
+    },
+    "require-dev": {
+        "sebastiaanluca/php-codesniffer-ruleset": "^0.4.3"
     }
 }
