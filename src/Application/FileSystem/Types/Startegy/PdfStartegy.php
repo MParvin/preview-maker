@@ -3,6 +3,7 @@
 namespace Module\Application\FileSystem\Types\Strategy;
 
 use Module\Application\FileSystem\File;
+use Module\Application\FileSystem\Pdf;
 
 class PdfStrategy implements StrategyInterface
 {
@@ -36,5 +37,10 @@ class PdfStrategy implements StrategyInterface
         if (!$this->match()) {
             return $this->file;
         }
+
+        $pdf     = new Pdf($this->file->getPath());
+        $preview = $pdf->saveImage($this->file->getTmpDir());
+        
+        return  $this->file->setPreview($preview ? $preview : null);
     }
 }
