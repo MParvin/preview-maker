@@ -18,7 +18,19 @@ class File
 
     private $preview;
 
-    public function __construct($filePath)
+    private $tmpDir = '/tmp/preview-maker/';
+
+    public function __construct($filePath = null)
+    {
+        if (!is_file($filePath)) {
+            throw new \Exception("Invalid file path");
+        }
+        
+        $this->readFile($filePath);     // Extract file data
+        $this->setTmpDir();             // Create default temp directory 
+    }
+
+    private function readFile($filePath)
     {
         $mimeTypes = new MimeTypes();
         $mimeType  = $mimeTypes->guessMimeType($filePath);
@@ -156,6 +168,41 @@ class File
     public function setPreview($preview)
     {
         $this->preview = $preview;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tmpDir
+     */ 
+    public function getTmpDir()
+    {
+        if ($this->tmpDir) {
+            $this->tmpDir = rtrim($this->tmpDir, '\/') . DIRECTORY_SEPARATOR;
+        }
+        
+        return $this->tmpDir;
+    }
+
+    /**
+     * Set the value of tmpDir
+     *
+     * @return  self
+     */ 
+    public function setTmpDir($tmpDir = null)
+    {
+        if (is_null($tmpDir)) {
+            $tmpDir = $this->tmpDir;
+        }
+
+        $tmpDir = rtrim($tmpDir, '\/') . DIRECTORY_SEPARATOR;
+        if (!is_dir($tmpDir)) {
+            if (mkdir($tmpDir)) {
+                $this->tmpDir = $tmpDir;
+            } else {
+                throw new \Exception(sprintf("Cannot create temp directory at %s", $tmpDir));
+            }
+        }
 
         return $this;
     }
