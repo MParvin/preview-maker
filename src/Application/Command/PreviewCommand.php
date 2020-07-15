@@ -25,8 +25,10 @@ class PreviewCommand extends Command
         $file     = $service->preview();
 
         $output->writeln('');
-        $output->writeln(sprintf('File name: %s', $file->getName()));
-        $output->writeln(sprintf('Directory: %s', $file->getDir()));
-        $output->writeln(sprintf('Preview: %s', $file->getPreview()));
+        $output->writeln(sprintf('<info>File name:</info> %s', $file->getName()));
+        $output->writeln(sprintf('<info>Directory:</info> %s', $file->getDir()));
+        $output->writeln(sprintf('<info>Preview:</info>   %s', $file->getPreview()));
+        $output->writeln('');
+        $output->writeln('<info>Done</info>');
     }
 }
