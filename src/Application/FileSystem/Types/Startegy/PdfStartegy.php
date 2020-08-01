@@ -32,14 +32,18 @@ class PdfStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview(): File
+    public function preview($output = null): File
     {
         if (!$this->match()) {
             return $this->file;
         }
 
+        if (!$output) {
+            $output = $this->file->getTmpDir();
+        }
+
         $pdf     = new Pdf($this->file->getPath());
-        $preview = $pdf->saveImage($this->file->getTmpDir());
+        $preview = $pdf->saveImage($output);
         
         return  $this->file->setPreview($preview ? $preview : null);
     }

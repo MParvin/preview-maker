@@ -18,5 +18,5 @@ interface StrategyInterface
 
     public function match(): bool;
 
-    public function preview(): File;
+    public function preview($output = null): File;
 }

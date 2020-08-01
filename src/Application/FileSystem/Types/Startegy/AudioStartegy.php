@@ -36,7 +36,7 @@ class AudioStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview(): File
+    public function preview($output = null): File
     {
         if (!$this->match()) {
             return $this->file;
