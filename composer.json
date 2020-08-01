@@ -1,5 +1,6 @@
 {
     "name": "hamidgh83/preview-maker",
+    "description": "",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -17,12 +18,14 @@
     },
     "minimum-stability": "stable",
     "require": {
+        "php" : ">=7.2.5",
         "symfony/console": "^3.4",
         "php-ffmpeg/php-ffmpeg": "^0.16.0",
         "php-di/php-di": "^6.0",
         "ocramius/proxy-manager": "^2.0",
         "symfony/filesystem": "^3.4",
-        "symfony/mime": "^5.1"
+        "symfony/mime": "^5.1",
+        "symfony/process": "^5.1"
     },
     "scripts": {
         "codesniffer-set-standard": "vendor/bin/phpcs --config-set installed_paths Standards/ && vendor/bin/phpcs --config-set default_standard ",

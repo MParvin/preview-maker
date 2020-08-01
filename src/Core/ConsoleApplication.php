@@ -4,23 +4,86 @@ namespace Core;
 
 use DI\Container;
 use DI\ContainerBuilder;
+use Module\Application\Exception\RequirementsException;
 use Symfony\Component\Console\Application;
 
 class ConsoleApplication extends Application
-{
+{    
+    /**
+     * @var array
+     */
     protected $config;
-
+    
+    /**
+     * @var Container
+     */
     private $container;
-
+    
+    /**
+     * Initialize application
+     *
+     * @param  mixed $config
+     * @return void
+     */
     public function init(array $config)
     {
         $this->config = $config;
 
-        return $this
-            ->createContainer(isset($config['services']) ? $config['services'] : [])
-            ->registerCommands();
+        try {
+            return $this
+                ->checkRequirements()
+                ->createContainer(isset($config['services']) ? $config['services'] : [])
+                ->registerCommands();
+        } catch (RequirementsException $e) {
+            echo PHP_EOL;
+            echo $e->getMessage();
+            echo PHP_EOL;
+            echo PHP_EOL;
+            exit();
+        }
     }
+    
+    /**
+     * Check the application requirements before running
+     *
+     * @throws RequirementsException
+     * @return self
+     */
+    private function checkRequirements()
+    {
+        // Check OS environment
+        if (PHP_OS != 'Linux') {
+            throw new RequirementsException("Operating system is not supported. The program only runs on Linux server.");
+            return;
+        }
 
+        // Check PHP version
+        if (PHP_VERSION < '7.2.5') {
+            throw new RequirementsException("Your PHP version is not supported. The application requires minimum 7.2.5 PHP version.");
+        }
+
+        // Check if java has been installed
+        exec('java -version > NULL && echo yes || echo no', $output);
+    
+        if($output[0] == 'no') {
+            throw new RequirementsException('There is no Java environment.');
+        }
+        
+        // Check if liberoffice has been installed
+        exec('libreoffice --version > NULL && echo yes || echo no', $output);
+    
+        if($output[0] == 'no') {
+            throw new RequirementsException('LibreOffice has not been installed.');
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * Register available commands 
+     *
+     * @return self
+     */
     private function registerCommands()
     {
         $commands = isset($this->config['commands']) ? $this->config['commands'] : [];
@@ -32,7 +95,13 @@ class ConsoleApplication extends Application
 
         return $this;
     }
-
+    
+    /**
+     * Create dependency injection container
+     *
+     * @param  mixed $services
+     * @return self
+     */
     private function createContainer(array $services)
     {
         // Create container
@@ -46,12 +115,24 @@ class ConsoleApplication extends Application
 
         return $this;
     }
-
+    
+    /**
+     * Get container
+     *
+     * @return Container
+     */
     public function getContainer()
     {
         return $this->container;
     }
-
+    
+    /**
+     * Get a service by its name
+     *
+     * @param  string $name Service name
+     * @param  mixed $params
+     * @return Object
+     */
     public function getService($name, $params = [])
     {
         $container = $this->getContainer();
