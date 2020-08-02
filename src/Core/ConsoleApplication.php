@@ -6,6 +6,8 @@ use DI\Container;
 use DI\ContainerBuilder;
 use Module\Application\Exception\RequirementsException;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class ConsoleApplication extends Application
 {    
@@ -54,7 +56,6 @@ class ConsoleApplication extends Application
         // Check OS environment
         if (PHP_OS != 'Linux') {
             throw new RequirementsException("Operating system is not supported. The program only runs on Linux server.");
-            return;
         }
 
         // Check PHP version
@@ -63,19 +64,19 @@ class ConsoleApplication extends Application
         }
 
         // Check if java has been installed
-        exec('java -version > NULL && echo yes || echo no', $output);
-    
-        if($output[0] == 'no') {
+        $process = Process::fromShellCommandline('java -version > NULL && echo yes || echo no');
+        $process->run();
+        if (!$process->isSuccessful() || trim($process->getOutput()) == 'yes') {
             throw new RequirementsException('There is no Java environment.');
         }
-        
+
         // Check if liberoffice has been installed
-        exec('libreoffice --version > NULL && echo yes || echo no', $output);
-    
-        if($output[0] == 'no') {
+        $process = Process::fromShellCommandline('libreoffice --version > NULL && echo yes || echo no');
+        $process->run();
+        if (!$process->isSuccessful() || trim($process->getOutput()) == 'no') {
             throw new RequirementsException('LibreOffice has not been installed.');
         }
-        
+
         return $this;
     }
     
