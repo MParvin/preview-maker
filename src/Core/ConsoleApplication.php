@@ -30,6 +30,10 @@ class ConsoleApplication extends Application
     {
         $this->config = $config;
 
+        // Set application name and version
+        $this->setName(isset($config['AppName']) ? $config['AppName'] : 'PreviewMaker');
+        $this->setVersion(isset($config['version']) ? $config['version'] : '1.0.0');
+
         try {
             return $this
                 ->checkRequirements()
@@ -42,6 +46,11 @@ class ConsoleApplication extends Application
             echo PHP_EOL;
             exit();
         }
+    }
+
+    public function getVersion()
+    {
+        return 'v' . parent::getVersion();
     }
     
     /**
