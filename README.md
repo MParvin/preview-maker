@@ -1,21 +1,24 @@
 ### Overview
+
 PreviewMaker is a standalone application written in pure PHP to create image preview from different file formats ranging from Microsoft documents to video formats.
 
-#### Requirements
+### Requirements
+
 You need to have a **Linux OS** with the following items installed:
 
 - PHP v7.2.5 above
 - OpenJDK
 - LibreOffice v6.2.6.2 above
 
-#### Installation
+### Installation
 
 ```bash
 $ composer require hamidgh83/preview-maker
 ```
 > **Note:** We are preparing a docker version for easier deployment.
 
-#### Supported Files
+### Supported Files
+
 PreviewMaker makes it easy to create image preview from Microsoft documents, PDF files and videos. Here is the list of supported *mime types*:
 
 **Documents**
@@ -42,7 +45,8 @@ PreviewMaker makes it easy to create image preview from Microsoft documents, PDF
 - "video/x-ms-wmv",
 - "video/x-msvideo"
 
-#### Console commands
+### Console commands
+
 **Creating preview from a file**
 
 ***Usage***
