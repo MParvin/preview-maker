@@ -2,9 +2,10 @@
 
 namespace Module\Application\Service;
 
-use Module\Application\FileSystem\File;
+use Module\Application\FileSystem\InputFile;
 use Module\Application\FileSystem\Types\Strategy;
 use Module\Application\FileSystem\Types\Strategy\StrategyInterface;
+use Symfony\Component\Console\Exception\RuntimeException;
 
 class PreviewService
 {
@@ -24,7 +25,7 @@ class PreviewService
     private $filePath;
     
     /**
-     * @var File
+     * @var InputFile
      */
     private $file;
     
@@ -33,15 +34,27 @@ class PreviewService
      */
     protected $startegy;
 
-    public function __construct($filePath = null)
+    /**
+     * @var array
+     */
+    protected $options;
+
+    public function __construct($options = [])
+    {
+        $this->options = $options;
+    }
+
+    public function setFilePath($filePath)
     {
         if ($filePath) {
             $this->read($filePath);
         }
+
+        return $this;
     }
     
     /**
-     * Given a file it creates a File object holding the file metadata 
+     * Given a file it creates an InputFile object holding the file metadata 
      *
      * @param  mixed $filePath
      * @return self
@@ -53,10 +66,14 @@ class PreviewService
         }
         
         if (!is_readable($this->filePath)) {
-            throw new \InvalidArgumentException(sprintf("The file '%s' is not readable.", $this->filePath));
+            throw new \InvalidArgumentException(sprintf("Error: The file '%s' is not readable.", $this->filePath));
         }
         
-        $this->file = new File($this->filePath);
+        $this->file = new InputFile($this->filePath);
+
+        if (isset($this->options['TmpDir'])) {
+            $this->file->setTmpDir($this->options['TmpDir']);
+        }
 
         return $this;
     }
@@ -64,9 +81,9 @@ class PreviewService
     /**
      * Returns the file object
      *
-     * @return File
+     * @return InputFile
      */
-    public function getFile(): File
+    public function getFile(): InputFile
     {
         return $this->file;
     }
@@ -74,13 +91,13 @@ class PreviewService
     /**
      * Create an image preview from the given file
      *
-     * @return File
-     * @throws Exception
+     * @return InputFile
+     * @throws RuntimeException
      */
     public function preview($output = null)
     {
-        if (!$this->file instanceof File) {
-            throw new \Exception("No file has been selected.");
+        if (!$this->file instanceof InputFile) {
+            throw new RuntimeException("Error: No file has been selected.");
         }
 
         foreach ($this->types as $strategy) {
@@ -91,6 +108,6 @@ class PreviewService
             }
         }
 
-        throw new \Exception("The file type is not supported.");
+        throw new RuntimeException("Error: The file type is not supported.");
     }
 }

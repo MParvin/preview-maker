@@ -6,8 +6,17 @@ use DI\FactoryInterface;
 
 class AbstractFactory
 {
-    public function __call($method, $args)
+    private $config = [];
+
+    public function setConfig($config)
     {
-        return call_user_func_array([$this, $method], $args);
+        $this->config = $config;
+
+        return $this;
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
     }
 }

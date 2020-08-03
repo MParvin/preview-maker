@@ -4,7 +4,7 @@ namespace Module\Application\FileSystem;
 
 use Symfony\Component\Mime\MimeTypes;
 
-class File
+class InputFile
 {
     private $name;
 

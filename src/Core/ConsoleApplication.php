@@ -6,7 +6,6 @@ use DI\Container;
 use DI\ContainerBuilder;
 use Module\Application\Exception\RequirementsException;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class ConsoleApplication extends Application
@@ -66,7 +65,7 @@ class ConsoleApplication extends Application
         // Check if java has been installed
         $process = Process::fromShellCommandline('java -version > NULL && echo yes || echo no');
         $process->run();
-        if (!$process->isSuccessful() || trim($process->getOutput()) == 'yes') {
+        if (!$process->isSuccessful() || trim($process->getOutput()) == 'no') {
             throw new RequirementsException('There is no Java environment.');
         }
 
@@ -139,6 +138,6 @@ class ConsoleApplication extends Application
         $container = $this->getContainer();
         $factory   = $container->get($name);
 
-        return $factory->make($name, $params);
+        return $factory->setConfig($this->config)->make($name, $params);
     }
 }

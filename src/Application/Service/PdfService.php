@@ -1,13 +1,13 @@
 <?php
 
-namespace Module\Application\FileSystem;
+namespace Module\Application\Service;
 
 use Imagick;
 use Module\Application\Exception\InvalidFormatException;
 use Module\Application\Exception\PageDoesNotExistException;
 use Module\Application\Exception\PdfNotFoundException;
 
-class Pdf
+class PdfService
 {
     protected $pdfFile;
 
@@ -31,7 +31,7 @@ class Pdf
 
     public function __construct(string $pdfFile)
     {
-        if (! file_exists($pdfFile)) {
+        if (!file_exists($pdfFile)) {
             throw new PdfNotFoundException("File `{$pdfFile}` does not exist");
         }
 
@@ -111,11 +111,15 @@ class Pdf
 
     public function saveImage(string $pathToImage)
     {
-        if (is_dir($pathToImage)) {
-            $pathToImage = rtrim($pathToImage, '\/') . DIRECTORY_SEPARATOR . time() . '.' . $this->outputFormat;
+        $pathToImage = rtrim($pathToImage, '\/');
+
+        if (!is_dir($pathToImage)) {
+            mkdir($pathToImage, 0777, true);
         }
 
-        $imageData = $this->getImageData($pathToImage);
+        $pathToImage .= DIRECTORY_SEPARATOR;
+        $pathToImage .= time() . '.' . $this->outputFormat;
+        $imageData   = $this->getImageData($pathToImage);
 
         if (file_put_contents($pathToImage, $imageData) !== false) {
             return $pathToImage;

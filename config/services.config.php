@@ -2,9 +2,9 @@
 namespace Module\Application;
 
 use function DI\create;
-use Module\Application\Factory\ffmpegServiceFactory;
-use Module\Application\Service\ffmpegService;
+use Module\Application\Factory\PreviewServiceFactory;
+use Module\Application\Service\PreviewService;
 
 return [
-    ffmpegService::class => create(ffmpegServiceFactory::class),
+    PreviewService::class => create(PreviewServiceFactory::class),
 ];

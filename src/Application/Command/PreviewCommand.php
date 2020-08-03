@@ -22,8 +22,9 @@ class PreviewCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        
         $filePath  = $input->getArgument('filepath');
-        $service   = new PreviewService($filePath);
+        $service   = $this->getPreviewService()->setFilePath($filePath);
         $startTime = microtime(true); 
         $file      = $service->preview($input->getOption('output'));
         $endTime   = microtime(true);
@@ -35,5 +36,10 @@ class PreviewCommand extends Command
         $output->writeln('');
         $output->writeln(sprintf('<fg=yellow;options=bold>Execution time: %s sec</>', number_format($endTime - $startTime, 5)));
         $output->writeln('');
+    }
+
+    private function getPreviewService(): PreviewService
+    {
+        return $this->getApplication()->getService(PreviewService::class);
     }
 }
