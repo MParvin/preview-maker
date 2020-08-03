@@ -2,7 +2,7 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\File;
+use Module\Application\FileSystem\InputFile;
 
 class AudioStrategy implements StrategyInterface
 {
@@ -17,7 +17,7 @@ class AudioStrategy implements StrategyInterface
         "audio/x-ms-wma"
     ];
 
-    public function __construct(File $file)
+    public function __construct(InputFile $file)
     {
         $this->file = $file;
     }
@@ -36,7 +36,7 @@ class AudioStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): File
+    public function preview($output = null): InputFile
     {
         if (!$this->match()) {
             return $this->file;

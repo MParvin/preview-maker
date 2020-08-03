@@ -2,7 +2,7 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\File;
+use Module\Application\FileSystem\InputFile;
 
 interface StrategyInterface
 {
@@ -12,11 +12,11 @@ interface StrategyInterface
     const TYPE_AUDIO    = 'audio';
     const TYPE_VIDEO    = 'video';
 
-    public function __construct(File $file);
+    public function __construct(InputFile $file);
 
     public function getType();
 
     public function match(): bool;
 
-    public function preview($output = null): File;
+    public function preview($output = null): InputFile;
 }

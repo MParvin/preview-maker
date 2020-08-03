@@ -4,7 +4,7 @@ namespace Module\Application\FileSystem\Types\Strategy;
 
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg;
-use Module\Application\FileSystem\File;
+use Module\Application\FileSystem\InputFile;
 
 class VideoStartegy implements StrategyInterface
 {
@@ -24,7 +24,7 @@ class VideoStartegy implements StrategyInterface
         "video/x-msvideo"
     ];
 
-    public function __construct(File $file)
+    public function __construct(InputFile $file)
     {
         $this->file = $file;
     }
@@ -43,7 +43,7 @@ class VideoStartegy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): File
+    public function preview($output = null): InputFile
     {
         if (!$this->match()) {
             return $this->file;

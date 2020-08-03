@@ -2,8 +2,8 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\File;
-use Module\Application\FileSystem\Pdf;
+use Module\Application\FileSystem\InputFile;
+use Module\Application\Service\PdfService as Pdf;
 
 class PdfStrategy implements StrategyInterface
 {
@@ -13,7 +13,7 @@ class PdfStrategy implements StrategyInterface
         "application/pdf",
     ];
 
-    public function __construct(File $file)
+    public function __construct(InputFile $file)
     {
         $this->file = $file;
     }
@@ -32,7 +32,7 @@ class PdfStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): File
+    public function preview($output = null): InputFile
     {
         if (!$this->match()) {
             return $this->file;

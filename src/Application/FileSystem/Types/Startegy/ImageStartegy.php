@@ -2,7 +2,7 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\File;
+use Module\Application\FileSystem\InputFile;
 
 class ImageStrategy implements StrategyInterface
 {
@@ -16,7 +16,7 @@ class ImageStrategy implements StrategyInterface
         "image/bmp",
     ];
 
-    public function __construct(File $file)
+    public function __construct(InputFile $file)
     {
         $this->file = $file;
     }
@@ -35,7 +35,7 @@ class ImageStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): File
+    public function preview($output = null): InputFile
     {
         if (!$this->match()) {
             return $this->file->setPreview(null);
