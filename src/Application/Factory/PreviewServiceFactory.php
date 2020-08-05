@@ -14,6 +14,4 @@ class PreviewServiceFactory extends AbstractFactory implements FactoryInterface
 
         return new PreviewService($options);
     }
-
-    
 }

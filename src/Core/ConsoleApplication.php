@@ -9,17 +9,18 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Process\Process;
 
 class ConsoleApplication extends Application
-{    
+{
+
     /**
      * @var array
      */
     protected $config;
-    
+
     /**
      * @var Container
      */
     private $container;
-    
+
     /**
      * Initialize application
      *
@@ -52,7 +53,7 @@ class ConsoleApplication extends Application
     {
         return 'v' . parent::getVersion();
     }
-    
+
     /**
      * Check the application requirements before running
      *
@@ -87,9 +88,9 @@ class ConsoleApplication extends Application
 
         return $this;
     }
-    
+
     /**
-     * Register available commands 
+     * Register available commands
      *
      * @return self
      */
@@ -104,7 +105,7 @@ class ConsoleApplication extends Application
 
         return $this;
     }
-    
+
     /**
      * Create dependency injection container
      *
@@ -124,7 +125,7 @@ class ConsoleApplication extends Application
 
         return $this;
     }
-    
+
     /**
      * Get container
      *
@@ -134,13 +135,13 @@ class ConsoleApplication extends Application
     {
         return $this->container;
     }
-    
+
     /**
      * Get a service by its name
      *
-     * @param  string $name Service name
-     * @param  mixed $params
-     * @return Object
+     * @param  string $name   Service name
+     * @param  mixed  $params
+     * @return object
      */
     public function getService($name, $params = [])
     {

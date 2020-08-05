@@ -18,12 +18,12 @@ class PreviewService
         Strategy\PdfStrategy::class,
         Strategy\VideoStartegy::class,
     ];
-    
+
     /**
      * @var InputFile
      */
     private $file;
-    
+
     /**
      * @var StrategyInterface
      */
@@ -47,9 +47,9 @@ class PreviewService
 
         return $this;
     }
-    
+
     /**
-     * Given a file it creates an InputFile object holding the file metadata 
+     * Given a file it creates an InputFile object holding the file metadata
      *
      * @param  mixed $filePath
      * @return self
@@ -60,7 +60,7 @@ class PreviewService
 
         return $this;
     }
-    
+
     /**
      * Returns the file object
      *
@@ -70,7 +70,7 @@ class PreviewService
     {
         return $this->file;
     }
-    
+
     /**
      * Create an image preview from the given file
      *
@@ -84,7 +84,7 @@ class PreviewService
         }
 
         $output = !$output && isset($this->options['TmpDir']) ? $this->options['TmpDir'] : $output;
-        
+
         if (!$output) {
             throw new RuntimeException("Error: Invalid output path.");
         }

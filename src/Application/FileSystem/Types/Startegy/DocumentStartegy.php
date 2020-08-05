@@ -2,7 +2,6 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\InputFile;
 use Module\Application\FileSystem\OutputFile;
 use Module\Application\Service\PdfService as Pdf;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -12,6 +11,7 @@ use Symfony\Component\Process\Process;
 class DocumentStrategy extends AbsractConvertor implements StrategyInterface
 {
     private $validMimeTypes = [
+        "application/msword",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/vnd.ms-excel",
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -51,16 +51,16 @@ class DocumentStrategy extends AbsractConvertor implements StrategyInterface
 
     public function toPdf($output): ?OutputFile
     {
-        $output  = rtrim($output, '\/') . DIRECTORY_SEPARATOR;
+        $output = rtrim($output, '\/') . DIRECTORY_SEPARATOR;
 
         $command = 'libreoffice --headless --invisible --convert-to pdf ' . $this->file->getPath() . ' --outdir '. $output;
         $process = Process::fromShellCommandline($command);
         $process->run();
-        
+
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
-        
+
         if ($process->getErrorOutput()) {
             throw new RuntimeException($process->getErrorOutput());
         }

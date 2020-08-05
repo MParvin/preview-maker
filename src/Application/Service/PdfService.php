@@ -72,7 +72,7 @@ class PdfService
      * If int, should correspond to a predefined LAYERMETHOD constant.
      * If null, Imagick::mergeImageLayers() will not be called.
      *
-     * @param int|null
+     * @param integer|null
      *
      * @return $this
      *
@@ -119,7 +119,7 @@ class PdfService
 
         $pathToImage .= DIRECTORY_SEPARATOR;
         $pathToImage .= time() . '.' . $this->outputFormat;
-        $imageData   = $this->getImageData($pathToImage);
+        $imageData    = $this->getImageData($pathToImage);
 
         if (file_put_contents($pathToImage, $imageData) !== false) {
             return $pathToImage;
@@ -136,15 +136,18 @@ class PdfService
             return [];
         }
 
-        return array_map(function ($pageNumber) use ($directory, $prefix) {
-            $this->setPage($pageNumber);
+        return array_map(
+            function ($pageNumber) use ($directory, $prefix) {
+                $this->setPage($pageNumber);
 
-            $destination = "{$directory}/{$prefix}{$pageNumber}.{$this->outputFormat}";
+                $destination = "{$directory}/{$prefix}{$pageNumber}.{$this->outputFormat}";
 
-            $this->saveImage($destination);
+                $this->saveImage($destination);
 
-            return $destination;
-        }, range(1, $numberOfPages));
+                return $destination;
+            },
+            range(1, $numberOfPages)
+        );
     }
 
     public function getImageData(string $pathToImage): Imagick

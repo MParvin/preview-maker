@@ -22,10 +22,10 @@ class PreviewCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $filePath  = $input->getArgument('filepath');
-        $service   = $this->getPreviewService()->setFile($filePath);
+        $filePath = $input->getArgument('filepath');
+        $service  = $this->getPreviewService()->setFile($filePath);
 
-        $startTime = microtime(true); 
+        $startTime = microtime(true);
         $file      = $service->preview($input->getOption('output'));
         $endTime   = microtime(true);
 

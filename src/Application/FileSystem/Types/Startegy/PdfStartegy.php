@@ -33,7 +33,7 @@ class PdfStrategy extends AbsractConvertor implements StrategyInterface
 
         $pdf     = new Pdf($this->file->getPath());
         $preview = $pdf->saveImage($output);
-        
+
         return $preview ? new OutputFile($preview) : null;
     }
 
@@ -41,5 +41,4 @@ class PdfStrategy extends AbsractConvertor implements StrategyInterface
     {
         return new OutputFile($this->file->getPath());
     }
-
 }

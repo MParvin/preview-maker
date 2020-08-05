@@ -19,7 +19,8 @@ class VideoStartegy extends AbsractConvertor implements StrategyInterface
         "video/ms-asf",
         "video/x-ms-asf",
         "video/x-ms-wmv",
-        "video/x-msvideo"
+        "video/x-msvideo",
+        "video/x-matroska"
     ];
 
     public function getType()
@@ -45,7 +46,7 @@ class VideoStartegy extends AbsractConvertor implements StrategyInterface
         $output = rtrim($output, '\/') . DIRECTORY_SEPARATOR . time() . '.jpg';
         $ffmpeg = FFMpeg::create();
         $video  = $ffmpeg->open($this->file->getPath());
-        
+
         try {
             $result = $video->frame(TimeCode::fromSeconds(1))->save($output);
         } catch (\Throwable $th) {
