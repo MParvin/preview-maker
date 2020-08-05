@@ -2,7 +2,6 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\InputFile;
 use Module\Application\FileSystem\OutputFile;
 
 class AudioStrategy extends AbsractConvertor implements StrategyInterface

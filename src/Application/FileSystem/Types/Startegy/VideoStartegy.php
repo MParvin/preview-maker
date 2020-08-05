@@ -4,7 +4,6 @@ namespace Module\Application\FileSystem\Types\Strategy;
 
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg;
-use Module\Application\FileSystem\InputFile;
 use Module\Application\FileSystem\OutputFile;
 
 class VideoStartegy extends AbsractConvertor implements StrategyInterface
