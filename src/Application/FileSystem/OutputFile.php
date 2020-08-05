@@ -2,6 +2,6 @@
 
 namespace Module\Application\FileSystem;
 
-class InputFile extends File
+class OutputFile extends File
 {
 }
