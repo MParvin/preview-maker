@@ -5,11 +5,10 @@ namespace Module\Application\FileSystem\Types\Strategy;
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg;
 use Module\Application\FileSystem\InputFile;
+use Module\Application\FileSystem\OutputFile;
 
-class VideoStartegy implements StrategyInterface
+class VideoStartegy extends AbsractConvertor implements StrategyInterface
 {
-    protected $file;
-
     private $validMimeTypes = [
         "video/3gpp",
         "video/mp4",
@@ -23,11 +22,6 @@ class VideoStartegy implements StrategyInterface
         "video/x-ms-wmv",
         "video/x-msvideo"
     ];
-
-    public function __construct(InputFile $file)
-    {
-        $this->file = $file;
-    }
 
     public function getType()
     {
@@ -43,28 +37,27 @@ class VideoStartegy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): InputFile
+    public function preview($output): ?OutputFile
     {
         if (!$this->match()) {
-            return $this->file;
+            return null;
         }
 
-        if (!$output) {
-            $output = $this->file->getTmpDir();
-        }
-        
         $output = rtrim($output, '\/') . DIRECTORY_SEPARATOR . time() . '.jpg';
         $ffmpeg = FFMpeg::create();
         $video  = $ffmpeg->open($this->file->getPath());
         
         try {
             $result = $video->frame(TimeCode::fromSeconds(1))->save($output);
-
-            $this->file->setPreview($output);
         } catch (\Throwable $th) {
-            $this->file->setPreview(null);
+            $output = null;
         }
 
-        return $this->file;
+        return new OutputFile($output);
+    }
+
+    public function toPdf($output): ?OutputFile
+    {
+        return null;
     }
 }

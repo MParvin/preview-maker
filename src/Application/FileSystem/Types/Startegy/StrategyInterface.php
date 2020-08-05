@@ -3,6 +3,7 @@
 namespace Module\Application\FileSystem\Types\Strategy;
 
 use Module\Application\FileSystem\InputFile;
+use Module\Application\FileSystem\OutputFile;
 
 interface StrategyInterface
 {
@@ -18,5 +19,7 @@ interface StrategyInterface
 
     public function match(): bool;
 
-    public function preview($output = null): InputFile;
+    public function preview($output): ?OutputFile;
+
+    public function toPdf($output): ?OutputFile;
 }

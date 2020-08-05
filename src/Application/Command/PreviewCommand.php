@@ -22,9 +22,9 @@ class PreviewCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        
         $filePath  = $input->getArgument('filepath');
-        $service   = $this->getPreviewService()->setFilePath($filePath);
+        $service   = $this->getPreviewService()->setFile($filePath);
+
         $startTime = microtime(true); 
         $file      = $service->preview($input->getOption('output'));
         $endTime   = microtime(true);
@@ -32,7 +32,7 @@ class PreviewCommand extends Command
         $output->writeln('');
         $output->writeln(sprintf('<info>File name:</info> %s', $file->getName()));
         $output->writeln(sprintf('<info>Directory:</info> %s', $file->getDir()));
-        $output->writeln(sprintf('<info>Preview:</info>   %s', $file->getPreview()));
+        $output->writeln(sprintf('<info>Preview:</info>   %s', $file->getPath()));
         $output->writeln('');
         $output->writeln(sprintf('<fg=yellow;options=bold>Execution time: %s sec</>', number_format($endTime - $startTime, 5)));
         $output->writeln('');

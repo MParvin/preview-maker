@@ -20,11 +20,6 @@ class PreviewService
     ];
     
     /**
-     * @var string
-     */
-    private $filePath;
-    
-    /**
      * @var InputFile
      */
     private $file;
@@ -44,7 +39,7 @@ class PreviewService
         $this->options = $options;
     }
 
-    public function setFilePath($filePath)
+    public function setFile($filePath)
     {
         if ($filePath) {
             $this->read($filePath);
@@ -59,21 +54,9 @@ class PreviewService
      * @param  mixed $filePath
      * @return self
      */
-    public function read($filePath = null)
+    public function read($filePath)
     {
-        if ($filePath) {
-            $this->filePath = $filePath;
-        }
-        
-        if (!is_readable($this->filePath)) {
-            throw new \InvalidArgumentException(sprintf("Error: The file '%s' is not readable.", $this->filePath));
-        }
-        
-        $this->file = new InputFile($this->filePath);
-
-        if (isset($this->options['TmpDir'])) {
-            $this->file->setTmpDir($this->options['TmpDir']);
-        }
+        $this->file = new InputFile($filePath);
 
         return $this;
     }
@@ -98,6 +81,12 @@ class PreviewService
     {
         if (!$this->file instanceof InputFile) {
             throw new RuntimeException("Error: No file has been selected.");
+        }
+
+        $output = !$output && isset($this->options['TmpDir']) ? $this->options['TmpDir'] : $output;
+        
+        if (!$output) {
+            throw new RuntimeException("Error: Invalid output path.");
         }
 
         foreach ($this->types as $strategy) {

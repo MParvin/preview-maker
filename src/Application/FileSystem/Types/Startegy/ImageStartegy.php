@@ -2,12 +2,10 @@
 
 namespace Module\Application\FileSystem\Types\Strategy;
 
-use Module\Application\FileSystem\InputFile;
+use Module\Application\FileSystem\OutputFile;
 
-class ImageStrategy implements StrategyInterface
+class ImageStrategy extends AbsractConvertor implements StrategyInterface
 {
-    protected $file;
-
     private $validMimeTypes = [
         "image/png",
         "image/jpeg",
@@ -15,11 +13,6 @@ class ImageStrategy implements StrategyInterface
         "image/psd",
         "image/bmp",
     ];
-
-    public function __construct(InputFile $file)
-    {
-        $this->file = $file;
-    }
 
     public function getType()
     {
@@ -35,12 +28,17 @@ class ImageStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): InputFile
+    public function preview($output): ?OutputFile
     {
         if (!$this->match()) {
-            return $this->file->setPreview(null);
+            return null;
         }
 
-        return $this->file->setPreview($this->file->getPath());
+        return new OutputFile($this->file->getPath());
+    }
+
+    public function toPdf($output): ?OutputFile
+    {
+        return null;
     }
 }

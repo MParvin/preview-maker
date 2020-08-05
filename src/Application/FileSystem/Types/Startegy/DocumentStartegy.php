@@ -3,15 +3,14 @@
 namespace Module\Application\FileSystem\Types\Strategy;
 
 use Module\Application\FileSystem\InputFile;
+use Module\Application\FileSystem\OutputFile;
 use Module\Application\Service\PdfService as Pdf;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-class DocumentStrategy implements StrategyInterface
+class DocumentStrategy extends AbsractConvertor implements StrategyInterface
 {
-    protected $file;
-
     private $validMimeTypes = [
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/vnd.ms-excel",
@@ -20,11 +19,6 @@ class DocumentStrategy implements StrategyInterface
         "application/vnd.openxmlformats-officedocument.presentationml.presentation",
         "application/vnd.oasis.opendocument.text",
     ];
-
-    public function __construct(InputFile $file)
-    {
-        $this->file = $file;
-    }
 
     public function getType()
     {
@@ -40,14 +34,26 @@ class DocumentStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): InputFile
+    public function preview($output): ?OutputFile
     {
         if (!$this->match()) {
-            return $this->file;
+            return null;
         }
 
-        $tmp     = $this->file->getTmpDir() . time();
-        $command = 'libreoffice --headless --invisible --convert-to pdf ' . $this->file->getPath() . ' --outdir '. $tmp;
+        $outputFile = $this->toPdf($output);
+        $pdf        = new Pdf($outputFile->getPath());
+        $preview    = $pdf->saveImage($output);
+
+        $outputFile->unlink();  // Remove PDF file
+
+        return $preview ? new OutputFile($preview) : null;
+    }
+
+    public function toPdf($output): ?OutputFile
+    {
+        $output  = rtrim($output, '\/') . DIRECTORY_SEPARATOR;
+
+        $command = 'libreoffice --headless --invisible --convert-to pdf ' . $this->file->getPath() . ' --outdir '. $output;
         $process = Process::fromShellCommandline($command);
         $process->run();
         
@@ -58,14 +64,7 @@ class DocumentStrategy implements StrategyInterface
         if ($process->getErrorOutput()) {
             throw new RuntimeException($process->getErrorOutput());
         }
-        
-        if (!$output) {
-            $output = $this->file->getTmpDir();
-        }
-        
-        $pdf     = new Pdf($tmp . DIRECTORY_SEPARATOR . $this->file->getName() . '.pdf');
-        $preview = $pdf->saveImage($output);
-        
-        return  $this->file->setPreview($preview ? $preview : null);
+
+        return new OutputFile($output . $this->file->getName() . '.pdf');
     }
 }

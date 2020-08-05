@@ -3,11 +3,10 @@
 namespace Module\Application\FileSystem\Types\Strategy;
 
 use Module\Application\FileSystem\InputFile;
+use Module\Application\FileSystem\OutputFile;
 
-class AudioStrategy implements StrategyInterface
+class AudioStrategy extends AbsractConvertor implements StrategyInterface
 {
-    protected $file;
-
     private $validMimeTypes = [
         "audio/mp4",
         "audio/mpeg",
@@ -16,11 +15,6 @@ class AudioStrategy implements StrategyInterface
         "audio/webm",
         "audio/x-ms-wma"
     ];
-
-    public function __construct(InputFile $file)
-    {
-        $this->file = $file;
-    }
 
     public function getType()
     {
@@ -36,10 +30,17 @@ class AudioStrategy implements StrategyInterface
         return false;
     }
 
-    public function preview($output = null): InputFile
+    public function preview($output): ?OutputFile
     {
         if (!$this->match()) {
-            return $this->file;
+            return null;
         }
+
+        return null;
+    }
+
+    public function toPdf($output): ?OutputFile
+    {
+        return null;
     }
 }
