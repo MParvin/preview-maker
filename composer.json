@@ -18,7 +18,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php" : ">=7.2.5",
+        "php" : "^7.2.5",
         "symfony/console": "^3.4",
         "php-ffmpeg/php-ffmpeg": "^0.16.0",
         "php-di/php-di": "^6.0",
