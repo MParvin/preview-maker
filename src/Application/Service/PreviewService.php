@@ -97,6 +97,6 @@ class PreviewService
             }
         }
 
-        throw new RuntimeException("Error: The file type is not supported.");
+        throw new RuntimeException(sprintf("Error: Unsupported file type! The mime type %s is not supported.", $this->file->getMetadata()->getMimeType()));
     }
 }
