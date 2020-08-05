@@ -14,7 +14,7 @@ return [
 
     // Commands
     'commands' => [
-        Command\ConvertCommand::class,
+        // Command\ConvertCommand::class,
         Command\PreviewCommand::class,
     ],
 ];
