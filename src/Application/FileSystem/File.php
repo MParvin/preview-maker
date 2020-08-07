@@ -5,7 +5,7 @@ namespace Module\Application\FileSystem;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Mime\MimeTypes;
 
-class File
+class File implements FileInterface
 {
     private $name;
 
