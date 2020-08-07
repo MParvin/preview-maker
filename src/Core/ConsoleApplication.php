@@ -90,6 +90,18 @@ class ConsoleApplication extends Application
     }
 
     /**
+     * Registers a new command.
+     *
+     * @param string $name The command name
+     *
+     * @return Command The newly created command
+     */
+    public function register($name)
+    {
+        return $this->add(new Command($name));
+    }
+
+    /**
      * Register available commands
      *
      * @return self

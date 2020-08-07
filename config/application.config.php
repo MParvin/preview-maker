@@ -4,7 +4,7 @@ namespace Module\Application;
 return [
     // App info
     'AppName' => 'PreviewMaker',
-    'Version' => '1.0.0',
+    'Version' => '1.1.0',
 
     // App settings
     'settings' => require __DIR__ . "/settings.config.php",
@@ -14,7 +14,6 @@ return [
 
     // Commands
     'commands' => [
-        // Command\ConvertCommand::class,
         Command\PreviewCommand::class,
     ],
 ];

@@ -74,6 +74,7 @@ class PreviewService
     /**
      * Create an image preview from the given file
      *
+     * @param  string $output
      * @return InputFile
      * @throws RuntimeException
      */
@@ -98,5 +99,32 @@ class PreviewService
         }
 
         throw new RuntimeException(sprintf("Error: Unsupported file type! The mime type %s is not supported.", $this->file->getMetadata()->getMimeType()));
+    }
+    
+    /**
+     * Create a PDF preview from the given file
+     *
+     * @param  string $output
+     * @return void
+     */
+    public function toPdf($output = null)
+    {
+        if (!$this->file instanceof InputFile) {
+            throw new RuntimeException("Error: No file has been selected.");
+        }
+
+        $output = !$output && isset($this->options['TmpDir']) ? $this->options['TmpDir'] : $output;
+
+        if (!$output) {
+            throw new RuntimeException("Error: Invalid output path.");
+        }
+
+        $strategy = new Strategy\DocumentStrategy($this->file);
+
+        if ($strategy->match()) {
+            return $strategy->toPdf($output);
+        }
+
+        throw new RuntimeException(sprintf("Error: Unable to convert given file to PDF. The mimetype %s is not supported.", $this->file->getMetadata()->getMimeType()));
     }
 }

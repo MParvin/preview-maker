@@ -1,9 +1,8 @@
 <?php
 namespace Module\Application\Command;
 
-use Module\Application\Service\ffmpegService;
+use Core\Command;
 use Module\Application\Service\PreviewService;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,27 +14,24 @@ class PreviewCommand extends Command
     {
         $this->setName('preview')
             ->setDescription('This creates a preview image from an input file.')
-            ->setHelp('Demonstration of custom commands created by Symfony Console component.')
-            ->addArgument('filepath', InputArgument::REQUIRED, 'Path to the file you want to make preview from')
+            ->setHelp('This command is to create an image or pdf preview from an input file.')
+            ->addArgument('inputFile', InputArgument::REQUIRED, 'Path to the file you want to make preview from')
+            ->addOption('pdf', null, InputOption::VALUE_NONE, 'Convert given document to pdf')
             ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Path to output file');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $filePath = $input->getArgument('filepath');
-        $service  = $this->getPreviewService()->setFile($filePath);
+        $inputFile = $input->getArgument('inputFile');
+        $service   = $this->getPreviewService()->setFile($inputFile);
 
-        $startTime = microtime(true);
-        $file      = $service->preview($input->getOption('output'));
-        $endTime   = microtime(true);
+        if ($input->getOption('pdf')) {
+            $file = $service->toPdf($input->getOption('output'));    
+        } else {
+            $file = $service->preview($input->getOption('output'));
+        }
 
-        $output->writeln('');
-        $output->writeln(sprintf('<info>File name:</info> %s', $file->getName()));
-        $output->writeln(sprintf('<info>Directory:</info> %s', $file->getDir()));
-        $output->writeln(sprintf('<info>Preview:</info>   %s', $file->getPath()));
-        $output->writeln('');
-        $output->writeln(sprintf('<fg=yellow;options=bold>Execution time: %s sec</>', number_format($endTime - $startTime, 5)));
-        $output->writeln('');
+        $this->writeSummary($output, $file);
     }
 
     private function getPreviewService(): PreviewService
