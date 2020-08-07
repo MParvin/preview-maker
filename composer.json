@@ -1,6 +1,6 @@
 {
     "name": "hamidgh83/preview-maker",
-    "description": "PreviewMaker is a standalone application written in pure PHP to create image preview from different file formats ranging from Microsoft documents to video formats.",
+    "description": "PreviewMaker is a standalone application written in pure PHP to create preview (PDF and image) from different file formats ranging from Microsoft documents to video formats.",
     "type": "project",
     "license": "MIT",
     "authors": [

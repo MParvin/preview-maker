@@ -1,6 +1,6 @@
 ### Overview
 
-PreviewMaker is a standalone application written in pure PHP to create image preview from different file formats ranging from Microsoft documents to video formats.
+PreviewMaker is a standalone application written in pure PHP to create preview (PDF and image) from different file formats ranging from Microsoft documents to video formats.
 
 ### Requirements
 
