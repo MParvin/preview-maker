@@ -1,8 +1,9 @@
 # Changelog
 
 ## v1.1.0 (07/08/2020)
-Ability to convert document files to PDF 
+New
+- Ability to convert document files to PDF 
 ---
 
-## v1.0.0 (07/08/2020)
+## v1.0.0 (05/08/2020)
 *No changelog for this release.*
