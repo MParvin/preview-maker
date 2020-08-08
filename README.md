@@ -1,6 +1,6 @@
 ### The Package
 
-[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/v)](//packagist.org/packages/phpunit/phpunit) [![Total Downloads](https://poser.pugx.org/phpunit/phpunit/downloads)](//packagist.org/packages/phpunit/phpunit) [![Latest Unstable Version](https://poser.pugx.org/phpunit/phpunit/v/unstable)](//packagist.org/packages/phpunit/phpunit) [![License](https://poser.pugx.org/phpunit/phpunit/license)](//packagist.org/packages/phpunit/phpunit)
+[![Latest Stable Version](https://poser.pugx.org/hamidgh83/preview-maker/v)](//packagist.org/packages/hamidgh83/preview-maker) [![Total Downloads](https://poser.pugx.org/hamidgh83/preview-maker/downloads)](//packagist.org/packages/hamidgh83/preview-maker) [![Latest Unstable Version](https://poser.pugx.org/hamidgh83/preview-maker/v/unstable)](//packagist.org/packages/hamidgh83/preview-maker) [![License](https://poser.pugx.org/hamidgh83/preview-maker/license)](//packagist.org/packages/hamidgh83/preview-maker)
 
 ### Overview
 
