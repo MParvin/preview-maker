@@ -13,6 +13,7 @@ You need to have a **Linux OS** with the following items installed:
 - PHP v7.2.5 above
 - OpenJDK
 - LibreOffice v6.2.6.2 above
+- FFmpeg
 
 ### Installation
 
@@ -65,6 +66,7 @@ PreviewMaker makes it easy to create image preview from Microsoft documents, PDF
 ***Options***
 | Option | Description |
 | ------------- |:-------------|
+| --pdf | Convert given document to pdf |
 | -o, --output=OUTPUT | Path to output file |
 | -h, --help | Display this help message |
 | -q, --quiet | Do not output any message |
