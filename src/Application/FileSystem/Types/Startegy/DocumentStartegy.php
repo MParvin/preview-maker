@@ -11,6 +11,11 @@ use Symfony\Component\Process\Process;
 class DocumentStrategy extends AbsractConvertor implements StrategyInterface
 {
     private $validMimeTypes = [
+        "text/plain",
+        "text/xml",
+        "text/html",
+        "text/rtf",
+        "application/vnd.oasis.opendocument.text-template",
         "application/msword",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/vnd.ms-excel",
